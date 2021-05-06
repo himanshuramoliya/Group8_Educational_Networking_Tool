@@ -2,18 +2,15 @@ import React from "react";
 import { useState } from "react";
 import TextField from "@material-ui/core/TextField";
 import Button from "@material-ui/core/Button";
-import IconButton from "@material-ui/core/IconButton";
 import Send from "@material-ui/icons/Send";
 import Question1 from "@material-ui/icons/QuestionAnswer";
-
 import { makeStyles } from "@material-ui/core/styles";
-
 import InputLabel from "@material-ui/core/InputLabel";
 import MenuItem from "@material-ui/core/MenuItem";
-import FormHelperText from "@material-ui/core/FormHelperText";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import Icon from "@material-ui/core/Icon";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -43,14 +40,17 @@ const AskQues = ({ addQue }) => {
   const classes = useStyles();
   const [Tog, setTog] = useState(false);
   const [Topic, setTopic] = useState("None");
+  const [flg, setFlg] = useState(false);
   const handleChange = (event) => {
     setTopic(event.target.value);
     console.log(Topic);
   };
 
+  const notify = () => toast.success("Your question is added");
+
   return (
     <div>
-      <div className="discussionBox">
+      <div className="discussionBox1">
         <div className="AskBox">
           <Button
             variant="contained"
@@ -70,10 +70,11 @@ const AskQues = ({ addQue }) => {
                   Topic
                 </InputLabel>
                 <Select
+                  fullWidth
                   labelId="demo-simple-select-outlined-label"
                   id="demo-simple-select-outlined"
                   value={Topic}
-                  fullWidth
+                  
                   onChange={handleChange}
                   style={{ width: "100%" }}
                   label="Topic"
@@ -82,7 +83,7 @@ const AskQues = ({ addQue }) => {
                   <MenuItem value={"Development"}>Development</MenuItem>
                   <MenuItem value={"Academic"}>Academic</MenuItem>
                   <MenuItem value={"Cultural"}>Cultural</MenuItem>
-                  <MenuItem value={"Genral"}>Genral</MenuItem>
+                  <MenuItem value={"General"}>General</MenuItem>
                 </Select>
               </FormControl>
             </div>
@@ -101,9 +102,12 @@ const AskQues = ({ addQue }) => {
               className={classes.button}
               endIcon={<Send fontSize="small" />}
               onClick={() => addQue({ Ques, Topic })}
+              
             >
               Ask
             </Button>
+            
+            <ToastContainer />
           </div>
         )}
       </div>

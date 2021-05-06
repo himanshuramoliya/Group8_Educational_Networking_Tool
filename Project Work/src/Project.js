@@ -4,6 +4,9 @@ import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import IconButton from "@material-ui/core/IconButton";
 import { makeStyles } from "@material-ui/core/styles";
 import background1 from "./Images/logo.png";
+import Pic from "./Images/profilepic.png";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -22,34 +25,59 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const Project = ({ Project }) => {
+  let cnt = 0;
+  const addParticipant = () => {
+    if (cnt + 1 < 2) {
+      let prof = Project.Author;
+
+      let str = "You have enrolled in " + prof + "'s Project";
+      toast(str);
+      cnt = cnt + 1;
+    } else {
+      toast("You are already enrolled");
+    }
+  };
   const classes = useStyles();
   return (
-    <div className="ProjectBox">
-      <div style={{ display: "inline-flex" }}>
-        <div
-          className="profilepic projhd"
-          style={{
-            backgroundImage: `url(${background1})`,
-            height: "5vw",
-            width: "4vw",
-          }}
-        ></div>
-        <div>
-          <div style={{ display: "inline-flex" }}>
-            <h2 className="projhd">{Project.Title}</h2>
+    <>
+      <ToastContainer />
+      <div className="ProjectBox ForShadow">
+        <div style={{ display: "inline-flex" }} className="ProjectHeader">
+          <div>
+            <img className="ImgProj" src={background1} alt="Logo of website" />
+          </div>
+          <div>
+            <div style={{ display: "inline-flex" }}>
+              <h2 className="projhd">{Project.Title}</h2>
 
-            <Button className="ApplyBtn">
-              Apply
-              <PersonAddIcon fontSize="small" />
-            </Button>
+              <Button className="ApplyBtn" onClick={addParticipant}>
+                Apply
+                <PersonAddIcon fontSize="small" />
+              </Button>
+            </div>
           </div>
         </div>
-      </div>
 
-      <div>
-        <p className="ProjectDiscrp">{Project.Description}</p>
+        <div className="ProfessorProject">
+          <div className="Profile">
+            <div style={{ paddingRight: "10px" }}>
+              <img className="DiscussIMG" src={Pic} alt="Logo of website" />
+            </div>
+
+            <h3 style={{ fontSize: "15px" }}>
+              {Project.Author}{" "}
+              <h5 style={{ fontSize: "10px", color: "gray" }}>Professor</h5>
+            </h3>
+          </div>
+        </div>
+
+        <div>
+          <p className="ProjectDiscrp" style={{ display: "inline-block" }}>
+            {Project.Description}
+          </p>
+        </div>
       </div>
-    </div>
+    </>
   );
 };
 

@@ -8,6 +8,8 @@ import { Cookies, useCookies } from "react-cookie";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -71,11 +73,17 @@ const Regi = ({ onadd }) => {
     // }
     let isP = Pcode === "John Reese" ? true : false;
     let isA = Pcode === "DA-Admin-hey-hum" ? true : false;
+    if(tog===false && (Pcode!="John Reese")) 
+    {
+      setPcode("");
+      toast.warn("Your Professor code is Wrong Please Try again");
+      return;
+    }
     let authCookie = {
       email: email,
       name: Fname + " " + Lname,
       GID: "",
-      Status: true,
+      Status: isP || isA,
       Code: Pcode,
     };
 
@@ -93,12 +101,14 @@ const Regi = ({ onadd }) => {
     axios
       .post(`${URL}/api/register`, NewUser) // url tobe added
       .then((res) => {
-
-
-        
-        console.log("response", res);
-        setCookie("userCookie", authCookie);
-        history.push("/main");
+        if (res.data.status === "ok") {
+          console.log("response", res);
+          setCookie("userCookie", authCookie);
+          alert("Your accout has been created successfully!");
+          history.push("/main");
+        } else {
+          alert(res.data.error);
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -126,7 +136,7 @@ const Regi = ({ onadd }) => {
             }}
             onMouseOver={clkprof}
           ></div>
-          <h3>professor</h3>
+          <h3>Professor</h3>
         </div>
         {/* <hr></hr> */}
         <div>
@@ -144,12 +154,14 @@ const Regi = ({ onadd }) => {
           ></div>
           <h3>Student</h3>
         </div>
+        <ToastContainer/>
       </div>
       <form onSubmit={onsub} className="add-form">
         <div className="form-control">
           <div className="inline-flex-par">
             <div>
               <TextField
+                required
                 id="standard-error-helper-text"
                 label="FirstName"
                 variant="outlined"
@@ -159,6 +171,7 @@ const Regi = ({ onadd }) => {
             </div>
             <div>
               <TextField
+                required
                 id="standard-error-helper-text"
                 label="LastName"
                 variant="outlined"
@@ -171,6 +184,7 @@ const Regi = ({ onadd }) => {
         {tog && (
           <div className="form-control">
             <TextField
+              required
               fullWidth
               id="standard-error-helper-text"
               label="Student Email"
@@ -193,6 +207,7 @@ const Regi = ({ onadd }) => {
                 onChange={(e) => setPemail(e.target.value)}
               /> */}
               <TextField
+              required
                 fullWidth
                 id="standard-error-helper-text"
                 label="Professor Email"
@@ -206,6 +221,7 @@ const Regi = ({ onadd }) => {
               {/* <label >Email-id</label>  */}
 
               <TextField
+              required
                 fullWidth
                 id="standard-error-helper-text"
                 label="Professor Code"
@@ -219,30 +235,31 @@ const Regi = ({ onadd }) => {
         )}
         <div className="form-control">
           {/* <label>password</label>  */}
-         
-              <TextField
-                fullWidth
-                id="standard-error-helper-text"
-                label="Password"
-                type="password"
-                variant="outlined"
-                value={password}
-                onChange={(e) => setpassword(e.target.value)}
-              />
+
+          <TextField
+            fullWidth
+            required
+            id="standard-error-helper-text"
+            label="Password"
+            type="password"
+            variant="outlined"
+            value={password}
+            onChange={(e) => setpassword(e.target.value)}
+          />
         </div>
 
         <div className="form-control">
           {/* <label>password</label>  */}
-          
+
           <TextField
             fullWidth
             required
             error={Val}
             id="standard-error-helper-text"
-            label="Password"
+            label="Confirm Password"
             type="password"
             variant="outlined"
-            helperText={Val && 'Password do not match'}
+            helperText={Val && "Password do not match"}
             value={cpassword}
             onChange={(e) => setcpassword(e.target.value)}
           />
@@ -261,6 +278,10 @@ const Regi = ({ onadd }) => {
         </div>
 
         <input type="submit" value="Register" className="btn btn-block" />
+        <button data-testid="create-new-acc" onClick={() => history.push("/login")} className="btn-ot">
+        {" "}
+        Login
+      </button>
       </form>
     </div>
   );
