@@ -8,8 +8,8 @@ import { Cookies, useCookies } from "react-cookie";
 import axios from "axios";
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -73,8 +73,7 @@ const Regi = ({ onadd }) => {
     // }
     let isP = Pcode === "John Reese" ? true : false;
     let isA = Pcode === "DA-Admin-hey-hum" ? true : false;
-    if(tog===false && (Pcode!="John Reese")) 
-    {
+    if (tog === false && Pcode != "John Reese") {
       setPcode("");
       toast.warn("Your Professor code is Wrong Please Try again");
       return;
@@ -84,7 +83,7 @@ const Regi = ({ onadd }) => {
       name: Fname + " " + Lname,
       GID: "",
       Status: isP || isA,
-      Code: Pcode,
+      admincode: Pcode,
     };
 
     let NewUser = {
@@ -154,7 +153,7 @@ const Regi = ({ onadd }) => {
           ></div>
           <h3>Student</h3>
         </div>
-        <ToastContainer/>
+        <ToastContainer />
       </div>
       <form onSubmit={onsub} className="add-form">
         <div className="form-control">
@@ -207,7 +206,7 @@ const Regi = ({ onadd }) => {
                 onChange={(e) => setPemail(e.target.value)}
               /> */}
               <TextField
-              required
+                required
                 fullWidth
                 id="standard-error-helper-text"
                 label="Professor Email"
@@ -221,7 +220,7 @@ const Regi = ({ onadd }) => {
               {/* <label >Email-id</label>  */}
 
               <TextField
-              required
+                required
                 fullWidth
                 id="standard-error-helper-text"
                 label="Professor Code"
@@ -278,10 +277,14 @@ const Regi = ({ onadd }) => {
         </div>
 
         <input type="submit" value="Register" className="btn btn-block" />
-        <button data-testid="create-new-acc" onClick={() => history.push("/login")} className="btn-ot">
-        {" "}
-        Login
-      </button>
+        <button
+          data-testid="create-new-acc"
+          onClick={() => history.push("/login")}
+          className="btn-ot"
+        >
+          {" "}
+          Login
+        </button>
       </form>
     </div>
   );

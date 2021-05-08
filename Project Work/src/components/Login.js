@@ -5,12 +5,11 @@ import { useHistory } from "react-router-dom";
 
 import { Cookies, useCookies } from "react-cookie";
 import axios from "axios";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
-
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,7 +29,6 @@ const Login = ({ onlog }) => {
   const [password, setpassword] = useState("");
   const [Val, setVal] = useState(false);
   const [Val1, setVal1] = useState(false);
-  
 
   const notify = () => toast.success("Wow so easy!");
   const onsub = (e) => {
@@ -43,10 +41,11 @@ const Login = ({ onlog }) => {
     let credi = {
       email: email,
       password: password,
+      
     };
     // email ane password check kari ne jo valid hoy to response ma name,email,status
     const URL = process.env.REACT_APP_BACKEND_URL;
-    
+
     axios
       .post(`${URL}/api/login`, credi) // here url to be added
       .then((res) => {
@@ -58,7 +57,6 @@ const Login = ({ onlog }) => {
         };
 
         if (res.data.status === "e1") {
-          
           setemail("");
           setpassword("");
 
@@ -66,11 +64,11 @@ const Login = ({ onlog }) => {
           return;
         }
         if (res.data.status === "error") {
-          
           setpassword("");
           setVal(true);
           return;
         }
+        console.log("sta",cookie.Status);
 
         setCookie("userCookie", cookie); // aaya response ma Status jose regisetr vali cookie type no response hovo joi
         // console.log(cookie);
@@ -81,10 +79,7 @@ const Login = ({ onlog }) => {
       .catch((err) => {
         console.log(err);
         return;
-      
       });
-
-     
 
     // after successuful log in lead to main page
     // backend nu thy pachhi aa  history push kadhi nakhvu
@@ -94,10 +89,10 @@ const Login = ({ onlog }) => {
     <div className="container">
       <form onSubmit={onsub} className="add-form">
         <div className="Login-title">
-          <h2 style={{textAlign: "center",fontFamily:'cursive' }}>Log in</h2>
-          
-          <div style={{padding:'15px',marginLeft:'25%'}}>
-          <GLogin />
+          <h2 style={{ textAlign: "center", fontFamily: "cursive" }}>Log in</h2>
+
+          <div style={{ padding: "15px", marginLeft: "25%" }}>
+            <GLogin />
           </div>
         </div>
 
@@ -119,7 +114,7 @@ const Login = ({ onlog }) => {
             error={Val1}
             value={email}
             variant="outlined"
-            helperText={Val1 && 'Invalid Email'}
+            helperText={Val1 && "Invalid Email"}
             onChange={(e) => setemail(e.target.value)}
           />
         </div>
@@ -140,7 +135,7 @@ const Login = ({ onlog }) => {
             label="Password"
             type="password"
             variant="outlined"
-            helperText={Val && 'Invalid Password'}
+            helperText={Val && "Invalid Password"}
             value={password}
             onChange={(e) => setpassword(e.target.value)}
           />
@@ -148,12 +143,15 @@ const Login = ({ onlog }) => {
 
         <input type="submit" value="Login" className="btn btn-block" />
         <div>
-        
-        <ToastContainer />
-      </div>
+          <ToastContainer />
+        </div>
       </form>
-      <h3 style={{textAlign:'center'}}>Don't have an account yet?</h3>
-      <button data-testid="create-new-acc" onClick={() => history.push("/signup")} className="btn-ot">
+      <h3 style={{ textAlign: "center" }}>Don't have an account yet?</h3>
+      <button
+        data-testid="create-new-acc"
+        onClick={() => history.push("/signup")}
+        className="btn-ot"
+      >
         {" "}
         Create an account
       </button>

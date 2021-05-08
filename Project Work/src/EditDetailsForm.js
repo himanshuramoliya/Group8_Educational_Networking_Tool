@@ -53,7 +53,7 @@ const EditDetailsForm = ({ person, setPerson, page, setPage }) => {
         </div>
 
         <div>
-          Betch Start:
+          Batch Start:
           <TextField
             style={{ paddingLeft: "0px" }}
             fullWidth
@@ -64,7 +64,7 @@ const EditDetailsForm = ({ person, setPerson, page, setPage }) => {
         </div>
 
         <div>
-          Betch End:
+          Batch End:
           <TextField
             style={{ paddingLeft: "0px" }}
             fullWidth
@@ -85,7 +85,7 @@ const EditDetailsForm = ({ person, setPerson, page, setPage }) => {
           />
         </div>
 
-        {/* <div>
+        <div>
           Email:
           <TextField
             style={{ paddingLeft: "0px" }}
@@ -94,7 +94,7 @@ const EditDetailsForm = ({ person, setPerson, page, setPage }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </div> */}
+        </div>
 
         <Button type="submit" color="primary" variant="contained" >Submit</Button>
       </form>

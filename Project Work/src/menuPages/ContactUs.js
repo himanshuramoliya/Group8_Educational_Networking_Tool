@@ -3,6 +3,7 @@ import NavBar from './NavBar';
 import React,{useState} from 'react';
 import {Contacts} from './Contacts';
 import './ContactUs.css';
+import Pic from './../Images/profilepic.png'
 const ContactUs=()=>{
 
     const SinglePerson=({P})=>{
@@ -23,7 +24,8 @@ const ContactUs=()=>{
             onMouseEnter={()=>setShow(true)} 
             onMouseLeave={()=>setShow(false)} >            
             <div>
-                    <img src={images(`./${P.person}.png`).default}/>
+                    {/* <img src={images(`./${P.person}.png`).default}/> */}
+                    <img src={Pic}/>
             </div>
                     <div className={show?'contact-vars-display':'contact-not-display'}>{P.email}</div>
                     <div className={show?'contact-vars-display':'contact-not-display'}>{P.phone}</div>

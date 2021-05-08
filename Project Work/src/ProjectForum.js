@@ -9,9 +9,9 @@ import axios from "axios";
 import pic from "./Images/profilepic.png";
 import SearchIcon from "@material-ui/icons/Search";
 import IconButton from "@material-ui/core/IconButton";
-import {useHistory } from "react-router-dom";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { useHistory } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 require("dotenv").config();
 const useStyles = makeStyles((theme) => ({
@@ -62,9 +62,9 @@ const ProjectForum = () => {
   // ena mate serch box ma bhi implement karvanu chhe
 
   const history = useHistory();
-  const Signout = () =>{
-     history.push("/login");
-   };
+  const Signout = () => {
+    history.push("/login");
+  };
   useEffect(() => {
     axios
       .get(`${URL}/GetProject`) // here url to be added
@@ -85,7 +85,7 @@ const ProjectForum = () => {
   }, []);
 
   const [flt, setFlt] = useState("");
-  
+
   const filter_search = (fltt) => {
     if (fltt === "") {
       setProjects(Proj_Org);
@@ -113,7 +113,7 @@ const ProjectForum = () => {
       .then((res) => {
         console.log("successfully added project");
         toast.success("successfully added project");
-        
+
         console.log("succ", res);
       })
       .catch((err) => {
@@ -121,9 +121,8 @@ const ProjectForum = () => {
         alert("there is some err in adding a project");
         return;
       });
-    setProjects([nwP,...Projects]);
+    setProjects([nwP, ...Projects]);
     setProj_Org(Projects);
-
   };
 
   return (
@@ -131,7 +130,7 @@ const ProjectForum = () => {
       <div>
         <div>
           <TextField
-            style={{ width: "93%"}}
+            style={{ width: "93%" }}
             id="outlined-search"
             label="Search"
             type="search"
@@ -155,56 +154,56 @@ const ProjectForum = () => {
         ))}
       </div>
       <div style={{ display: "inline-block" }}>
-          <div className="profile-icon">
-            <div style={{ display: "inline-flex", float: "right" }}></div>
-            <img src={pic} style={{height:'50px',width:'50px'}}/>
-            <sup>&nbsp;&nbsp;&nbsp;{Cookie.name}</sup>
-            <Button onClick={Signout}>Sign Out</Button>
-          </div>
-      <div>
-        {Cookie.Status && (
-          <div className="AddAProject">
-            <div className="AddProjTitle">
-              <h3 style={{ paddingTop: "15px" }}>Add Project</h3>
-            </div>
+        <div className="profile-icon">
+          <div style={{ display: "inline-flex", float: "right" }}></div>
+          <img src={pic} style={{ height: "50px", width: "50px" }} />
+          <sup>&nbsp;&nbsp;&nbsp;{Cookie.name}</sup>
+          <Button onClick={Signout}>Sign Out</Button>
+        </div>
+        <div>
+          {Cookie.Status && (
+            <div className="AddAProject">
+              <div className="AddProjTitle">
+                <h3 style={{ paddingTop: "15px" }}>Add Project</h3>
+              </div>
 
-            <div className="addProject">
-              <TextField
-                fullWidth
-                id="outlined-basic"
-                label="Project Topic"
-                variant="outlined"
-                style={{ padding: "10px" }}
-                value={Topic}
-                onChange={(e) => setTopic(e.target.value)}
-              />
+              <div className="addProject">
+                <TextField
+                  fullWidth
+                  id="outlined-basic"
+                  label="Project Topic"
+                  variant="outlined"
+                  style={{ padding: "10px" }}
+                  value={Topic}
+                  onChange={(e) => setTopic(e.target.value)}
+                />
 
-              <TextField
-                fullWidth
-                style={{ padding: "10px" }}
-                id="outlined-multiline-static"
-                label="Discription"
-                multiline
-                rows={4}
-                variant="outlined"
-                value={Disc}
-                onChange={(e) => setDisc(e.target.value)}
-              />
+                <TextField
+                  fullWidth
+                  style={{ padding: "10px" }}
+                  id="outlined-multiline-static"
+                  label="Discription"
+                  multiline
+                  rows={4}
+                  variant="outlined"
+                  value={Disc}
+                  onChange={(e) => setDisc(e.target.value)}
+                />
+              </div>
+              <div>
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={addProject}
+                >
+                  Add
+                </Button>
+                <ToastContainer />
+              </div>
             </div>
-            <div>
-              <Button
-                variant="contained"
-                color="primary"
-                className={classes.button}
-                onClick={addProject}
-              >
-                Add
-              </Button>
-              <ToastContainer/>
-            </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
       </div>
     </div>
   );
