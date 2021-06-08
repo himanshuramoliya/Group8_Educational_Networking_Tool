@@ -71,9 +71,9 @@ const Regi = ({ onadd }) => {
     //   window.alert("Your Prof code is invalid");
     //   return;
     // }
-    let isP = Pcode === "John Reese" ? true : false;
+    let isP = Pcode === "HA" ? true : false;
     let isA = Pcode === "DA-Admin-hey-hum" ? true : false;
-    if (tog === false && Pcode != "John Reese") {
+    if (tog === false && Pcode != "HA") {
       setPcode("");
       toast.warn("Your Professor code is Wrong Please Try again");
       return;
@@ -93,6 +93,7 @@ const Regi = ({ onadd }) => {
       password: password,
       interest: [],
       admincode: Pcode,
+      Status: isP || isA,
     };
 
     const URL = process.env.REACT_APP_BACKEND_URL;

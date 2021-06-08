@@ -7,6 +7,10 @@
   justify-content: space-evenly;
   padding-top: 40px;
 }
+.IMAG {
+  border-radius: 70px;
+  list-style-image: -moz-element();
+}
 
 .inline-contacts img {
   height: 120px;
@@ -24,7 +28,8 @@
   top: -160px;
   right: 0px;
   left: 0px;
-  bottom: 0px;
+  bottom: -50px;
+  /* border: 1px solid black; */
 }
 
 .contact-not-display {
